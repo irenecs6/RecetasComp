@@ -122,3 +122,16 @@ def receta_agregar_ingrediente(request, receta_pk, ingrediente_pk):
     receta.ingredientes.add(ingrediente)
 
     return redirect('receta_detalle', pk=receta_pk)
+
+
+
+
+# def eliminar_ingrediente(request, pk):
+#     ingrediente = get_object_or_404(IngredienteReceta, pk=pk)
+#     receta_pk = ingrediente.receta.pk   #cojo la pk de receta
+
+#     if request.method == 'POST':
+#         ingrediente.delete()
+#         return redirect('receta_detalle', pk=receta_pk)
+
+#     return render(request, 'app/receta_detalle.html', {"ingrediente": ingrediente})
