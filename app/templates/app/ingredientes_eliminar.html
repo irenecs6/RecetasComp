@@ -1,0 +1,12 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+    <h3>¿Seguro que quieres eliminar este ingrediente: {{ object.nombre }}?</h3>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <button type="submit">Sí, eliminar</button>
+    </form>
+
+{% endblock %}

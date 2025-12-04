@@ -1,0 +1,18 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<h1>Ingrediente:</h1>
+
+<p><strong>Nombre:</strong> {{ ingredientes.nombre }}</p>
+<p><strong>Categoría:</strong> {{ ingredientes.categoria }}</p>
+<p><strong>Refrigerado:</strong> {{ ingrediente.refrigerado|yesno:"Sí,No" }}</p>
+
+{% comment %} 
+<ul>
+    {% for ingrediente in object_list %}
+    <li>{{ ingrediente }} </li>
+    {% empty %}
+    <li>No hay ingredientes aún.</li>
+    {% endfor%}
+</ul> {% endcomment %}
+{% endblock %}

@@ -1,13 +1,50 @@
 from django.shortcuts import redirect, render, get_object_or_404
+from django.urls import reverse_lazy
 from .models import Ingrediente, CategoriaIngrediente
 from .forms import *
 from django.forms import formset_factory, modelformset_factory
 from django.db import IntegrityError
+from django.views.generic import TemplateView, ListView, DetailView,CreateView,UpdateView,DeleteView
+
 
 # Create your views here.
+class InicioView(TemplateView):
+    template_name = "app/inicio.html"
+    
 def inicio(request):
     return render(request, 'app/inicio.html')
 
+class IngredienteListaView(ListView):
+    model = Ingrediente
+    template_name = "app/ingredientes_lista.html"
+    context_object_name = 'ingredientes'
+    paginate_by = 1
+    
+class IngredienteDetalleView(DetailView):
+    model = Ingrediente
+    template_name = "app/ingredientes_detalle.html"
+    context_object_name = 'ingredientes'
+    # paginate_by = 1
+
+class IngredienteNuevoView(CreateView):
+    model = Ingrediente
+    #fields = '__all__'
+    form_class = IngredientesForm
+    template_name = 'app/ingredientes_nuevo.html'
+    success_url = reverse_lazy('ingredientes_lista')
+  
+class IngredienteEditarView(UpdateView):
+    model = Ingrediente
+    form_class = IngredientesForm
+    template_name = 'app/ingredientes_editar.html'
+    success_url = reverse_lazy('ingredientes_lista')  
+    
+class IngredienteEliminarView(DeleteView):
+    model = Ingrediente
+    template_name = 'app/ingredientes_eliminar.html'
+    success_url = reverse_lazy('ingredientes_lista')
+    
+    
 def ingredientes_lista(request):
     ingredientes = Ingrediente.objects.all()
     categorias = CategoriaIngrediente.objects.all()
