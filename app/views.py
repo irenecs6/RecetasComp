@@ -20,6 +20,24 @@ class IngredienteListaView(ListView):
     context_object_name = 'ingredientes'
     paginate_by = 1
     
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        formFiltro = FiltroIngredientesForm(self.request.GET)
+        
+        if formFiltro.is_valid():
+            categoria_filtro = self.queryset.GET.get('categoria')
+            refrigerado_filtro = self.queryset.GET.get('refrigerado')
+            nombre_filtro = self.queryset.GET.get('nombre')
+            
+            if categoria_filtro:
+                queryset = queryset.filter(categoria=categoria_filtro)
+            if refrigerado_filtro:
+                queryset = queryset.filter(refrigerado=True)
+            if nombre_filtro:
+                queryset = queryset.filter(nombre__icontains=nombre_filtro)
+        
+        return queryset
+    
 class IngredienteDetalleView(DetailView):
     model = Ingrediente
     template_name = "app/ingredientes_detalle.html"
