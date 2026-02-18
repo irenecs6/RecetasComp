@@ -25,4 +25,5 @@ urlpatterns = [
     path('ingredientes/nuevomodel', views.ingredientes_nuevo_model, name='ingredientes_nuevo_model'),
         
     path("", include(router.urls)),
+    path('api-auth/', include('rest_framework.urls')),
 ]

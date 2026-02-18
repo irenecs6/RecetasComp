@@ -7,12 +7,20 @@ from django.db import IntegrityError
 from django.views.generic import TemplateView, ListView, DetailView,CreateView,UpdateView,DeleteView
 from rest_framework import viewsets
 from .serializers import RecetaSerializer
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 # Create your views here.
 class RecetaViewSet(viewsets.ModelViewSet):
     queryset = Receta.objects.all()
     serializer_class = RecetaSerializer
+    permission_classes = [IsAuthenticated]  # Solo usuarios autenticados pueden acceder      
 
+    def get_permissions(self):
+        if self.action in ['create', 'update', 'destroy']:
+            self.permission_classes = [IsAdminUser]  # Solo administradores pueden crear, actualizar o eliminar
+        return super(RecetaViewSet, self).get_permissions()
+    
+    
 
 class InicioView(TemplateView):
     template_name = "app/inicio.html"
