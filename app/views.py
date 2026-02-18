@@ -5,9 +5,15 @@ from .forms import *
 from django.forms import formset_factory, modelformset_factory
 from django.db import IntegrityError
 from django.views.generic import TemplateView, ListView, DetailView,CreateView,UpdateView,DeleteView
-
+from rest_framework import viewsets
+from .serializers import RecetaSerializer
 
 # Create your views here.
+class RecetaViewSet(viewsets.ModelViewSet):
+    queryset = Receta.objects.all()
+    serializer_class = RecetaSerializer
+
+
 class InicioView(TemplateView):
     template_name = "app/inicio.html"
     

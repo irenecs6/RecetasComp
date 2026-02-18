@@ -1,7 +1,12 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'api/recetas', views.RecetaViewSet)
 
 urlpatterns = [
+    
     path('', views.InicioView.as_view(), name='inicio'),
 
     path('relaciones', views.relaciones, name='relaciones'),
@@ -18,4 +23,6 @@ urlpatterns = [
     path('ingredientes/<int:pk>/borrar', views.IngredienteEliminarView.as_view(), name='ingredientes_borrar'),
 
     path('ingredientes/nuevomodel', views.ingredientes_nuevo_model, name='ingredientes_nuevo_model'),
+        
+    path("", include(router.urls)),
 ]
